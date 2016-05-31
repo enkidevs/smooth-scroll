@@ -19,6 +19,14 @@ function getDocumentHeight () {
     document.documentElement.clientHeight)
 }
 
+function scroll (elem, value) {
+  if (elem.scrollTop) {
+    elem.scrollTop = value
+  } else {
+    elem.scrollTo(0, value)
+  }
+}
+
 export default function (elem, target, options) {
   options = {...DEFAULTS, ...options}
 
@@ -26,7 +34,7 @@ export default function (elem, target, options) {
     clearInterval(_interval)
   }
 
-  const startLocation = elem.scrollTop
+  const startLocation = elem.scrollTop || elem.pageYOffset
   const distance = target - startLocation
   let timeLapsed = 0
 
@@ -45,7 +53,7 @@ export default function (elem, target, options) {
     percentage = (percentage > 1) ? 1 : percentage
     const position = startLocation + (distance * options.easing(percentage))
     const flooredPosition = Math.floor(position)
-    elem.scrollTop = flooredPosition
+    scroll(elem, flooredPosition)
     stopAnimateScroll(position, flooredPosition)
   }
 
@@ -57,8 +65,8 @@ export default function (elem, target, options) {
    * Reset position to fix weird iOS bug
    * @link https://github.com/cferdinandi/smooth-scroll/issues/45
    */
-  if (elem.pageYOffset === 0) {
-    elem.scrollTop = 0
+  if (elem.scrollTop === 0 || elem.pageYOffset === 0) {
+    scroll(elem, 0)
   }
 
   startAnimateScroll()

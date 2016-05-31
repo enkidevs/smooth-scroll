@@ -10,6 +10,15 @@ function easeInOutQuad (t) {
 
 let _interval
 
+function getDocumentHeight () {
+  return Math.max(document.body.scrollHeight,
+    document.documentElement.scrollHeight,
+    document.body.offsetHeight,
+    document.documentElement.offsetHeight,
+    document.body.clientHeight,
+    document.documentElement.clientHeight)
+}
+
 export default function (elem, target, options) {
   options = {...DEFAULTS, ...options}
 
@@ -24,7 +33,7 @@ export default function (elem, target, options) {
   function stopAnimateScroll (position, flooredPosition) {
     if (position === target ||
       flooredPosition === target ||
-      ((elem.innerHeight + flooredPosition) >= window.innerHeight)) {
+      ((elem.innerHeight + flooredPosition) >= getDocumentHeight())) {
       clearInterval(_interval)
       options.onScrolled()
     }

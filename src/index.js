@@ -20,7 +20,7 @@ function getDocumentHeight () {
 }
 
 function scroll (elem, value) {
-  if (elem.scrollTop) {
+  if (typeof elem.scrollTop !== 'undefined') {
     elem.scrollTop = value
   } else {
     elem.scrollTo(0, value)

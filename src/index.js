@@ -34,7 +34,7 @@ export default function (elem, target, options) {
     clearInterval(_interval)
   }
 
-  const startLocation = elem.scrollTop || elem.pageYOffset
+  const startLocation = typeof elem.scrollTop !== 'undefined' ? elem.scrollTop : elem.pageYOffset
   const distance = target - startLocation
   let timeLapsed = 0
 

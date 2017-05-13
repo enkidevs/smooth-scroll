@@ -1,5 +1,5 @@
 {
-  "name": "smooth-scroll",
+  "name": "@enkidevs/smooth-scroll",
   "version": "0.1.4",
   "description": "",
   "main": "build/index.js",
